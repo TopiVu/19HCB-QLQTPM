@@ -1,27 +1,16 @@
 {
   "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "migrate": "knex migrate:rollback && knex migrate:latest"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dtienq/CCNLTHD.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dtienq/CCNLTHD/issues"
-  },
-  "homepage": "https://github.com/dtienq/CCNLTHD#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "knex": "^0.15.2",
-    "mysql2": "^2.2.5"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
   }
 }
