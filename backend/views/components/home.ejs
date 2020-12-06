@@ -5,3 +5,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        HomePage.initLayout();
+    });
+
+    var HomePage = {
+        initLayout: function() {
+            $('.active').removeClass('active');
+            $('#homePageTab').addClass('active');
+        }
+    }
+</script>
