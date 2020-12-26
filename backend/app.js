@@ -9,6 +9,9 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var touristPackageRouter = require('./routes/touristPackage');
 
+// require apis
+var touristPackageApiRouter = require('./routes/api/touristPackage');
+
 var app = express();
 
 // view engine setup
@@ -25,6 +28,9 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/users', usersRouter);
 app.use('/tourist_package', touristPackageRouter);
+
+//api routes
+app.use('/api/tourist_package', touristPackageApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

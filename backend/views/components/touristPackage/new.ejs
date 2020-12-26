@@ -1,20 +1,13 @@
 <div class="container-fluid">
   <div class="analytics-info-cs">
-    <h1>Tourist package NEW</h1>
+    <div class="basic-login-form-ad">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="all-form-element-inner">
+            <%- include('form.ejs', { url: '/tourist_package/create' , method: 'POST' , data: packageData || null }) %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(function () {
-    TouristPackagePage.initLayout();
-  });
-
-  var TouristPackagePage = {
-    initLayout: function () {
-      $('.active').removeClass('active');
-      $('#touristPackagePageTab').addClass('active');
-      $('.breadcome-menu > li > a').first().html("Tourist Package").attr('href', '/tourist_package');
-      $('.breadcome-menu > li > span').last().html("New");
-    }
-  }
-</script>
