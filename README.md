@@ -15,7 +15,7 @@ Dành cho môn quản lí quy trình phần mềm
 4. Chạy lệnh npm start
 
 ### API documentations:
-1. Cài đặt apidoc trên máy
+1. Cài đặt apidoc trên máy (https://apidocjs.com/)
 2. Chạy lệnh apidoc -i ./routes -o ./apidocs
 1. Vào thư mục apidocs
 2. Mở file index.html để xem document của API
