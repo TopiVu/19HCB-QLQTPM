@@ -1,0 +1,149 @@
+<form action="<%= url %>" method="<%= method %>" id="package-form">
+  <div class="form-group-inner">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <label class="login2 pull-right pull-right-pro">Tên hiển thị</label>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <input type="text" class="form-control" name="name" id="name" value="<%= data && data.name || '' %>">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <label class="login2 pull-right pull-right-pro">Thời gian bắt đầu</label>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <div class="input-group date start-date-picker">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          <input type="text" class="form-control" name="start_date" value="<%= data && data.start_date || '12/25/2020' %>" >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <label class="login2 pull-right pull-right-pro">Thời gian kết thúc</label>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <div class="input-group date end-date-picker">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          <input type="text" class="form-control" name="end_date" value="<%= data && data.end_date || '12/30/2020' %>">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <label class="login2 pull-right pull-right-pro">Hết hạn đăng ký</label>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <div class="input-group date expired-date-picker">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          <input type="text" class="form-control" name="expired_date" value="<%= data && data.expired_date || '12/28/2020' %>" >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <label class="login2 pull-right pull-right-pro">Giá tiền</label>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <input id="price" type="number" min="0" name="price" class="form-control" value="<%= data && data.price || '' %>" >
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <label class="login2 pull-right pull-right-pro">Khách tối thiểu</label>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <input id="min_capacity" type="number" min="1" name="min_capacity" class="form-control" value="<%= data && data.min_capacity || '' %>">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <label class="login2 pull-right pull-right-pro">Khách tối đa</label>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <input id="max_capacity" type="number" min="1" name="max_capacity" class="form-control" value="<%= data && data.max_capacity || '' %>">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="col-lg-2">
+      <label class="login2 pull-right pull-right-pro">Nội dung</label>
+    </div>
+    <div class="col-lg-10">
+      <div id="package-content" style="display: none;" data-value="<%= data && data.content || '' %>">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group-inner">
+    <div class="login-btn-inner">
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+          <div class="login-horizental cancel-wp pull-left form-bc-ele">
+            <button class="btn btn-white" type="submit">Cancel</button>
+            <button class="btn btn-sm btn-primary package-form-submit-btn" type="submit">Save Change</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  $(document).ready(function () {
+    TouristPackagePage.initLayout();
+    TouristPackagePage.prepareLibs();
+    TouristPackagePage.submitForm();
+  });
+
+  const TouristPackagePage = {
+    initLayout: function () {
+      $('.active').removeClass('active');
+      $('#touristPackagePageTab').addClass('active');
+      $('.breadcome-menu > li > a').first().html("Tourist Package").attr('href', '/tourist_package');
+      $('.breadcome-menu > li > span').last().html("New");
+    },
+
+    prepareLibs: function () {
+      $('.start-date-picker').datepicker({ dateFormat: 'mm/dd/yy' });
+      $('.end-date-picker').datepicker({ dateFormat: 'mm/dd/yy' });
+      $('.expired-date-picker').datepicker({ dateFormat: 'mm/dd/yy' });
+      $('#package-content').summernote({ height: '200px' });
+      $('#package-content').summernote("code", $('#package-content').data('value'));
+    },
+
+    submitForm: function () {
+      $('.package-form-submit-btn').on('click', function (e) {
+        e.preventDefault();
+        let $form = $('#package-form');
+        let contentInput = $("<input>")
+          .attr("type", "hidden")
+          .attr("name", "content")
+          .val($('#package-content').summernote('code'));
+        $form.append(contentInput);
+        $form.submit();
+      });
+    }
+  };
+</script>
