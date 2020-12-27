@@ -6,6 +6,7 @@ var config = {
     connection: {
       host: 'localhost',
       user: 'root',
+      password: process.env.MYSQL_ROOT_PASSWORD || '',
       database: 'SmartEasyTravel',
       port: 3306
     },
@@ -21,6 +22,7 @@ var config = {
     connection: {
       host: 'localhost',
       user: 'root',
+      password: process.env.MYSQL_ROOT_PASSWORD || '',
       database: 'SmartEasyTravelTest',
       port: 3306
     },

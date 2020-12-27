@@ -45,9 +45,9 @@ exports.up = function (knex) {
             table.text('content');
             table.string('image_path', 255);
             table.decimal('price').notNullable();
-            table.timestamp('start_date').notNullable();
-            table.timestamp('end_date').notNullable();
-            table.timestamp('expired_date');
+            table.timestamp('start_date').nullable();
+            table.timestamp('end_date').nullable();
+            table.timestamp('expired_date').nullable();
             table.integer('status').notNullable().default(1);
             table.integer('min_capacity');
             table.integer('max_capacity');
