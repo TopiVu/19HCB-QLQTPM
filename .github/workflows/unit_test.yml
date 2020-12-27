@@ -1,39 +1,48 @@
+env:
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: SmartEasyTravelTest
 name: Backend unit testing
 
 on:
   push:
-    branches: [integrate-github-action]
-
-defaults:
-  run:
-    working-directory: backend
+    branches-ignore:
+      - main
+      - mobile
 
 jobs:
   unit-test:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:5.7
-        ports:
-        - 3306:3306
+        image: mysql:8.0
         env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD:
-          MYSQL_DATABASE: SmartEasyTravelTest
-          MYSQL_ROOT_PASSWORD:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run build --if-present
-    - run: npm run test
-      env:
-        CI: true
-        NODE_ENV: test
+      - name: Verify MySQL connection from host
+        run: |
+          sudo apt-get install -y mysql-client
+          sudo /etc/init.d/mysql start
+
+      - uses: actions/checkout@v1
+      - run: mysql -h 127.0.0.1 --port 3306 -u root -p${{ env.MYSQL_ROOT_PASSWORD }} -e "CREATE DATABASE ${{ env.MYSQL_DATABASE }} CHARACTER SET utf8 COLLATE utf8_general_ci;SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES'"
+      - name: Set Node.js 10.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          npm install
+
+      - name: Run mocha
+        working-directory: backend
+        run: |
+          npm test
