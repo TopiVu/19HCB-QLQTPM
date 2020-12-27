@@ -1,7 +1,7 @@
 # **19HCB-QLQTPM**
 Dành cho môn quản lí quy trình phần mềm
 
-# **TEAM BACKEND** 
+# **TEAM BACKEND**
 ## **Cách chạy project**
 ### **Yêu cầu**:
 1. NodeJS phiên bản 10
@@ -19,3 +19,8 @@ Dành cho môn quản lí quy trình phần mềm
 2. Chạy lệnh apidoc -i ./routes -o ./apidocs
 1. Vào thư mục apidocs
 2. Mở file index.html để xem document của API
+
+#### Cách chạy unit test
+1. Tạo database "SmartEasyTravelTest"
+2. npm install (nếu chưa có thư viện mocha chai)
+3. chạy lệnh npm run test
