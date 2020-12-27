@@ -15,6 +15,7 @@ exports.up = function (knex) {
             table.increments('user_id');
             table.string('username', 20).notNullable().unique();
             table.string('password', 255).notNullable();
+            table.string('fullname', 50);
             table.string('email', 50);
             table.string('address', 255);
             table.string('phone', 12).notNullable().unique();

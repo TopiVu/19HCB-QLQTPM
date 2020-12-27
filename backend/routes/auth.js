@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var validation = require('../middlewares/validate.mdw');
 var userModel = require('../models/users.model');
+var customerModel = require('../models/customer.model');
 var jwt = require('jsonwebtoken');
 var constant = require('../utils/globals');
 var commonUtils = require('../utils/common');
@@ -32,7 +33,7 @@ var commonUtils = require('../utils/common');
  *     }
  */
 router.post('/login', validation(require('../schemas/auth.json')), function (req, res) {
-    const user = req.body;
+    var user = req.body;
 
     userModel.login(user.username).then(data => {
         const password = data.password;
@@ -43,7 +44,7 @@ router.post('/login', validation(require('../schemas/auth.json')), function (req
 
         data.password = undefined;
 
-        const token = jwt.sign(commonUtils.parse2PlainObject(data), constant.secretKeys);
+        const token = jwt.sign(commonUtils.parse2PlainObject(data), constant.SECRET_KEYS);
 
         res.json({
             access_token: token,
@@ -52,6 +53,61 @@ router.post('/login', validation(require('../schemas/auth.json')), function (req
     }).catch(_ => {
         res.status(401).json({
             message: "Username or password incorrect!"
+        });
+    });
+});
+
+/**
+ * @api {post} /auth/register Register
+ * @apiName Register
+ * @apiGroup Users
+ *
+ * @apiParamExample {json} Request-Example:
+ * {
+ *     "username": "tienqd1231111", (Bắt buộc)
+ *     "password": "123456", (Bắt buộc)
+ *     "fullname": "Quách Đình Tiến", (Bắt buộc)
+ *     "email": "quachdinhtien@gmail.com",
+ *     "address": "Địa chỉ",
+ *     "phone": "05821411021111" (Bắt buộc)
+ * }
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *     "data": {
+ *         "username": "tienqd1231111",
+ *         "fullname": "Quách Đình Tiến",
+ *         "email": "quachdinhtien@gmail.com",
+ *         "address": "Địa chỉ",
+ *         "phone": "05821411021111",
+ *         "user_role_id": 2,
+ *         "user_id": 13
+ *     }
+ * }
+ */
+router.post('/register', validation(require('../schemas/register.json')), function(req, res) {
+    var user = req.body;
+
+    customerModel.findByCode(constant.ROLES.CUSTOMER).then(user_role => {
+        user.user_role_id = user_role.user_role_id;
+
+        userModel.insert(user).then(userIds => {
+            user.password = undefined;
+            user.user_id = userIds[0];
+            res.json({
+                data: user
+            });
+        }).catch(err => {
+            res.status(500).json({
+                message: constant.ERROR_API_MESSAGE,
+                error: err
+            });
+        })
+    }).catch(err => {
+        res.status(500).json({
+            message: constant.ERROR_API_MESSAGE,
+            error: err
         });
     });
 });
