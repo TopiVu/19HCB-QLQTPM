@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="analytics-sparkle-line reso-mg-b-30 text-center">
+                <div>Tổng gói</div>
+                <h4 class="m-t-10">100000</h4>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="analytics-sparkle-line reso-mg-b-30 text-center">
+                <div>Số gói đã đăng ký</div>
+                <h4 class="m-t-10">3000</h4>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="analytics-sparkle-line reso-mg-b-30 text-center">
+                <div>Doanh thu</div>
+                <h4 class="m-t-10">630000000</h4>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="analytics-sparkle-line reso-mg-b-30 text-center">
+                <div>Tỉ lệ tăng trưởng</div>
+                <h4 class="m-t-10">23%</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        HomePage.initLayout();
+    });
+
+    var HomePage = {
+        initLayout: function () {
+            $('.active').removeClass('active');
+            $('#homePageTab').addClass('active');
+        }
+    }
+</script>
