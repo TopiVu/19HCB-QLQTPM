@@ -4,10 +4,85 @@ const touristPackageModel = require('../../models/tourist_package.model');
 const { authenticateToken } = require('../../middlewares/authentication');
 const constant = require('../../utils/globals');
 
+/**
+ * @api {get} /api/tourist_package Get All Tourism
+ * @apiName Index
+ * @apiGroup Tourism
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *     "success": true
+ *     "data": [
+ *         {
+ *             "tourist_package_id": 1,
+ *             "name": "tour 1",
+ *             "content": "content",
+ *             "image_path": null,
+ *             "price": "150000.00",
+ *             "start_date": "2020-12-26T17:38:57.000Z",
+ *             "end_date": null,
+ *             "expired_date": null,
+ *             "status": 1,
+ *             "min_capacity": null,
+ *             "max_capacity": null,
+ *             "company_id": 1
+ *         }
+ *     ]
+ * }
+ */
 router.get('/', async function (req, res) {
-  return res.status(200).json({ success: true, data: ['Array', 'array002'] });
+  try {
+    const data = await touristPackageModel.findAll();
+    return res.status(200).json({ success: true, data });
+  } catch(err) {
+    return res.status(500).json({ success: false, message: constant.ERROR_API_MESSAGE, error: err })
+  }
 });
 
+/**
+ * @api {post} /api/tourist_package/create Create New Tourism
+ * @apiName Create
+ * @apiGroup Tourism
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGci....xyyz"
+ *     }
+ *
+ * @apiParamExample {json} Request-Example:
+ * {
+ *    "name": "Phú quốc 3 ngày 2 đêm",
+ *    "price": 2000,
+ *    "min_capacity": 5,
+ *    "max_capacity": 30,
+ *    "start_date": "2020-12-15",
+ *    "end_date": "2020-12-30",
+ *    "expired_date": "2020-12-26",
+ *    "content": "Hello World <br> <strong>Strong text here</strong>",
+ *    "company_id": 1
+ * }
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *     "success": true
+ *     "data": {
+ *          "tourist_package_id": 1,
+ *          "name": "tour 1",
+ *          "content": "content",
+ *          "image_path": null,
+ *          "price": "150000.00",
+ *          "start_date": "2020-12-26T17:38:57.000Z",
+ *          "end_date": null,
+ *          "expired_date": null,
+ *          "status": 1,
+ *          "min_capacity": null,
+ *          "max_capacity": null,
+ *          "company_id": 1
+ *     }
+ * }
+ */
 router.post('/create', authenticateToken, async function (req, res) {
   try {
     const updateData = req.body;
@@ -19,6 +94,31 @@ router.post('/create', authenticateToken, async function (req, res) {
   }
 });
 
+/**
+ * @api {get} /api/tourist_package/:id/show Get specific tourism data
+ * @apiName Get Detail
+ * @apiGroup Tourism
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *     "success": true
+ *     "data": {
+ *          "tourist_package_id": 1,
+ *          "name": "tour 1",
+ *          "content": "content",
+ *          "image_path": null,
+ *          "price": "150000.00",
+ *          "start_date": "2020-12-26T17:38:57.000Z",
+ *          "end_date": null,
+ *          "expired_date": null,
+ *          "status": 1,
+ *          "min_capacity": null,
+ *          "max_capacity": null,
+ *          "company_id": 1
+ *     }
+ * }
+ */
 router.get('/:id/show', async function (req, res) {
   try {
     const data = await touristPackageModel.findById(req.params.id);
@@ -28,6 +128,49 @@ router.get('/:id/show', async function (req, res) {
   }
 });
 
+/**
+ * @api {post} /api/tourist_package/:id/update Update a existing Tourism
+ * @apiName Update
+ * @apiGroup Tourism
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGci....xyyz"
+ *     }
+ *
+ * @apiParamExample {json} Request-Example:
+ * {
+ *    "name": "Phú quốc 3 ngày 2 đêm",
+ *    "price": 2000,
+ *    "min_capacity": 5,
+ *    "max_capacity": 30,
+ *    "start_date": "2020-12-15",
+ *    "end_date": "2020-12-30",
+ *    "expired_date": "2020-12-26",
+ *    "content": "Hello World <br> <strong>Strong text here</strong>",
+ *    "company_id": 1
+ * }
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *     "success": true
+ *     "data": {
+ *          "tourist_package_id": 1,
+ *          "name": "tour 1",
+ *          "content": "content",
+ *          "image_path": null,
+ *          "price": "150000.00",
+ *          "start_date": "2020-12-26T17:38:57.000Z",
+ *          "end_date": null,
+ *          "expired_date": null,
+ *          "status": 1,
+ *          "min_capacity": null,
+ *          "max_capacity": null,
+ *          "company_id": 1
+ *     }
+ * }
+ */
 router.post('/:id/update', authenticateToken, async function (req, res) {
   try {
     const updateData = req.body;
@@ -39,6 +182,22 @@ router.post('/:id/update', authenticateToken, async function (req, res) {
   }
 });
 
+/**
+ * @api {get} /api/tourist_package/:id/delete Delete a existing Tourism
+ * @apiName Delete
+ * @apiGroup Tourism
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGci....xyyz"
+ *     }
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *     "success": true
+ * }
+ */
 router.get('/:id/delete', authenticateToken, async function (req, res) {
   try {
     await touristPackageModel.deleteById(req.params.id);
@@ -48,6 +207,32 @@ router.get('/:id/delete', authenticateToken, async function (req, res) {
   }
 });
 
+/**
+ * @api {get} /api/tourist_package/search Search Tourisms by name
+ * @apiName Search
+ * @apiGroup Tourism
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ * {
+ *     "success": true
+ *     "data": [
+ *         {
+ *             "tourist_package_id": 1,
+ *             "name": "tour 1",
+ *             "content": "content",
+ *             "image_path": null,
+ *             "price": "150000.00",
+ *             "start_date": "2020-12-26T17:38:57.000Z",
+ *             "end_date": null,
+ *             "expired_date": null,
+ *             "status": 1,
+ *             "min_capacity": null,
+ *             "max_capacity": null,
+ *             "company_id": 1
+ *         }
+ *     ]
+ */
 router.get('/search', async function (req, res) {
   try {
     const data = await touristPackageModel.findByName(req.query['name']);

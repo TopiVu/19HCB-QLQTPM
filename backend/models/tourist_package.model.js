@@ -10,6 +10,9 @@ module.exports = {
 
         return query;
     },
+    findAll: (queryOptions = {}) => {
+        return db('tourist_package').where(queryOptions);
+    },
     findById: (tourist_package_id) => {
         return db('tourist_package').where('tourist_package_id', tourist_package_id).first();
     },
