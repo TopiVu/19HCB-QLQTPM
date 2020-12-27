@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "auto": "nodemon ./bin/www"
+    "auto": "nodemon ./bin/www",
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
     "ajv": "^7.0.2",
@@ -20,6 +21,9 @@
     "mysql2": "^2.2.5"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5",
     "nodemon": "^2.0.6"
   }
 }

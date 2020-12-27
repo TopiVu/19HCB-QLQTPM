@@ -1,11 +1,11 @@
-const knex = require('knex') ({
-    client: 'mysql2',
-    connection: {
-        host: 'localhost',
-        user: 'root',
-        database: 'SmartEasyTravel',
-        port: 3306
-    }
-});
+const config = require('./../knexfile');
+const knex = require('knex');
+let db = null;
 
-module.exports = knex;
+if (process.env.NODE_ENV === "test") {
+  db = knex(config.test);
+} else {
+  db = knex(config.development);
+}
+
+module.exports = db;
