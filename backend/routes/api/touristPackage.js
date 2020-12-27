@@ -1,27 +1,61 @@
 const express = require('express');
 const router = express.Router();
-const knex = require('./../../config/db');
-const { parseStrToDate, parseDateToStr } = require('./../../config/utils');
+const touristPackageModel = require('../../models/tourist_package.model');
+const { authenticateToken } = require('../../middlewares/authentication');
+const constant = require('../../utils/globals');
 
-router.get('/:id/show', async function (req, res, next) {
-  const packageId = req.params.id;
+router.get('/', async function (req, res) {
+  return res.status(200).json({ success: true, data: ['Array', 'array002'] });
+});
+
+router.post('/create', authenticateToken, async function (req, res) {
   try {
-    const packageDataRow = await knex('tourist_package').select().where({ tourist_package_id: packageId });
+    const updateData = req.body;
+    await touristPackageModel.create(updateData);
 
-    if (!packageDataRow || packageDataRow.length <= 0) return res.json({ success: false, msg: 'data not found' });
-
-    const packageData = {
-      ...packageDataRow[0],
-      price: parseInt(packageDataRow[0].price),
-      start_date: parseDateToStr(packageDataRow[0].start_date),
-      expired_date: parseDateToStr(packageDataRow[0].expired_date),
-      end_date: parseDateToStr(packageDataRow[0].end_date),
-    }
-
-    return res.json({ success: true, data: packageData, msg: 'data fetched successfully' });
+    return res.status(200).json({ success: true, data: updateData });
   } catch (err) {
-    return res.json({ success: false, msg: 'something went wrong'});
+    return res.status(500).json({ success: false, message: constant.ERROR_API_MESSAGE, error: err })
   }
 });
+
+router.get('/:id/show', async function (req, res) {
+  try {
+    const data = await touristPackageModel.findById(req.params.id);
+    return res.status(200).json({ success: true, data });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: constant.ERROR_API_MESSAGE, error: err })
+  }
+});
+
+router.post('/:id/update', authenticateToken, async function (req, res) {
+  try {
+    const updateData = req.body;
+    await touristPackageModel.updateById(req.params.id, updateData);
+
+    return res.status(200).json({ success: true, data: updateData });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: constant.ERROR_API_MESSAGE, error: err })
+  }
+});
+
+router.get('/:id/delete', authenticateToken, async function (req, res) {
+  try {
+    await touristPackageModel.deleteById(req.params.id);
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: constant.ERROR_API_MESSAGE, error: err })
+  }
+});
+
+router.get('/search', async function (req, res) {
+  try {
+    const data = await touristPackageModel.findByName(req.query['name']);
+    return res.status(200).json({ success: true, data });
+  } catch (err) {
+    console.log({err});
+    return res.status(500).json({ success: false, message: constant.ERROR_API_MESSAGE, error: err })
+  }
+})
 
 module.exports = router;

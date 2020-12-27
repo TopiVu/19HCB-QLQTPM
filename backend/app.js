@@ -11,7 +11,7 @@ var touristPackageRouter = require('./routes/touristPackage');
 var authRouter = require('./routes/auth');
 var feedbackRouter = require('./routes/feedback');
 
-// require apis
+// require api routers
 var touristPackageApiRouter = require('./routes/api/touristPackage');
 
 var app = express();
@@ -33,7 +33,7 @@ app.use('/tourist_package', touristPackageRouter);
 app.use('/auth', authRouter);
 app.use('/feedback', feedbackRouter);
 
-//api routes
+// Api endpoints
 app.use('/api/tourist_package', touristPackageApiRouter);
 
 // catch 404 and forward to error handler

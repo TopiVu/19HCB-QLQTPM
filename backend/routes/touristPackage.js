@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var knex = require('./../config/db');
-var { parseStrToDate, parseDateToStr } = require('./../config/utils');
+var { parseStrToDate, parseDateToStr } = require('./../utils/dateHelper');
 var validation = require('../middlewares/validate.mdw');
 var touristPackageModel = require('../models/tourist_package.model');
 var constant = require('../utils/globals');
