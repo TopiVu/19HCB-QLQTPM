@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint .",
     "apk": "cd android && ./gradlew assembleRelease",
-    "clean": "cd android && ./gradlew clean"
+    "clean": "cd android && ./gradlew clean",
+    "codepush-android": "appcenter codepush release-react -a TopiVu/SmartEasyTravel19HCB-Android -d Production"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
@@ -21,11 +22,15 @@
     "@react-navigation/stack": "^5.9.3",
     "@types/react-native": "^0.63.25",
     "@types/redux-logger": "^3.0.8",
+    "appcenter": "4.0.0",
+    "appcenter-analytics": "4.0.0",
+    "appcenter-crashes": "4.0.0",
     "i18next": "^15.0.9",
     "native-base": "^2.13.14",
     "react": "16.13.1",
     "react-i18next": "9.0.10",
     "react-native": "0.63.4",
+    "react-native-code-push": "^6.4.1",
     "react-native-fast-image": "^8.3.2",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-indicators": "^0.17.0",

@@ -13,6 +13,7 @@ import { rootEpic } from './epics'
 import AsyncStorage from '@react-native-community/async-storage'
 import logger from 'redux-logger'
 import { GlobalModal, GlobalModalSetup } from 'shared/components'
+import codePush, {CodePushOptions} from "react-native-code-push";
 // redux observable config
 const epicMiddleware = createEpicMiddleware()
 const persistConfig = {
@@ -31,7 +32,17 @@ const persistedReducer = persistReducer(persistConfig, mapReducers)
 export const store: any = createStore(persistedReducer, enhancer)
 export const persistor = persistStore(store)
 epicMiddleware.run(rootEpic as any)
-
+@codePush({
+  updateDialog: { 
+    title: 'Phiên bản mới',
+    appendReleaseDescription: true,
+    // descriptionPrefix: 'Hiện đã có phiên bản mới!', // Bắt buộc cập nhật
+    // mandatoryContinueButtonLabel: 'Cập nhật', // Bắt buộc cập nhật
+    optionalIgnoreButtonLabel: 'Để sau',
+    optionalInstallButtonLabel: 'Cập nhật',
+    optionalUpdateMessage: 'Đã có bản cập nhật mới!'
+  }
+} as CodePushOptions)
 export class Root extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
