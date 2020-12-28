@@ -6,7 +6,7 @@ import { UIActivityIndicator } from 'react-native-indicators';
 import { NavigationSwitchScreenProps } from 'react-navigation';
 import { connect } from 'react-redux';
 import { PlainAction } from 'redux-typed-actions';
-import { Header } from 'shared/components';
+import { CImage, Header } from 'shared/components';
 import { ColorContentTheme, ColorTheme, ColorThemeOrgan, percentScreen } from 'shared/system';
 import { translate as t } from 'shared/translate/translate';
 
@@ -36,18 +36,69 @@ class HomePageComponent extends Component<Props, State>  {
     super(props)
   
   }
- 
-  render() {
-
+  
+  renderItem = () =>  {
     return (
-      <View style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}>
-        <Text> This is Home</Text>
+      <View>
+        <View style={styles.cartItem}>
+          <View style={{ margin: 16 }}>
+            <View>
+              <Text>Du lịch mùa hè tại Phú Quốc ( 3 ngày 2 đêm) </Text>
+            </View>
+            <View style={styles.line} />
+            <View style={{ flexDirection: 'row' }}>
+              <CImage 
+              source={require('assets/pictures/img_tour.png')}
+              resizeMode={'contain'}
+              style={{ height: 90, width: 120 }}
+              />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.txtDesciption}  numberOfLines={3}>Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...</Text>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text>Số khách</Text>
+
+                </View>
+              </View>
+
+            </View>
+          </View>
+          
+        </View>
+      </View>
+    )
+  }
+
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <Header
+          title={t('home:title')}
+          onPressBack={() => { }}
+        />
+        <View style={{ backgroundColor: '#E5E5E5', flex: 1 }}>
+          {this.renderItem()}
+        </View>
+        
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  cartItem : {
+    height: 200 * percentScreen,
+    backgroundColor: '#FFFFFF',
+    margin: 16
+  },
+  line: {
+    marginVertical: 5,
+    height: 1,
+    backgroundColor: '#E5E5E5'
+  },
+  txtDesciption: { 
+    color: '#888888',
+    fontSize: 13
+  }
   
 })
 export default connect(mapStateToProps, mapDispatchToProps)(translate()(HomePageComponent))

@@ -42,22 +42,7 @@ class MorePage extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
   }
-  callAPI = () => {
-    var params = {
-      username: "123123",
-      password: "2123",
-    }; //params
-    odoo.get('res.partner', 14, function (err, partner) {
-      if (err) { return console.log(err); }
   
-      console.log('Partner', partner);
-    });
-    // odoo.get('odoo.authenticate', params, function (err, partners) {
-    //   if (err) { return console.log(err); }
-  
-    //   console.log("log_ oddo",partners);
-    // })
-  }
   logOut() {
     Alert.alert(
       t('common:confirm'),
@@ -125,11 +110,6 @@ class MorePage extends Component<Props, State> {
               <Text style={styles.txtAction}>{t('more:changeLanguage')}: Vietnamese </Text>
               <Icon name='swap' type='Entypo' style={styles.iconAction} />
               <Text style={[styles.txtAction, { marginLeft: 0 }]}> English</Text>
-            </TouchableOpacity>
-            <View style={styles.line} />
-            <TouchableOpacity style={styles.boxAction} activeOpacity={0.6} onPress={this.callAPI}>
-              <Icon name='history' type='FontAwesome5' style={styles.iconAction} />
-              <Text style={styles.txtAction}>Call</Text>
             </TouchableOpacity>
             <View style={styles.line} />
           </View>
