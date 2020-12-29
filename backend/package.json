@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "auto": "nodemon ./bin/www",
+    "start:heroku": "echo 'heloowrold'",
     "test": "mocha"
   },
   "dependencies": {
