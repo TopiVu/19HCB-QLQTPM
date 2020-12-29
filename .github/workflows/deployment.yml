@@ -1,20 +1,17 @@
 env:
   MYSQL_ROOT_PASSWORD: root
   MYSQL_DATABASE: SmartEasyTravelTest
-name: Backend unit testing
-
+name: Run unit tests and deploy to heroku
 on:
   push:
-    branches-ignore:
+    branches:
       - main
       - master
-      - mobile
       - backend
   pull_request:
-    branches-ignore:
+    branches:
       - main
       - master
-      - mobile
       - backend
 
 jobs:
@@ -54,3 +51,13 @@ jobs:
         working-directory: backend
         run: |
           npm test
+  heroku-deployment:
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Deploy to Heroku
+      env:
+        HEROKU_API_KEY: f9b1e6f2-48d9-4340-a00b-610c51e7d594
+        HEROKU_APP_REPO_ID: smart-easy-travel-api
+      run: git subtree push --prefix backend https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_REPO_ID.git main
