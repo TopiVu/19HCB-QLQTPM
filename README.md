@@ -24,3 +24,6 @@ Dành cho môn quản lí quy trình phần mềm
 1. Tạo database "SmartEasyTravelTest"
 2. npm install (nếu chưa có thư viện mocha chai)
 3. chạy lệnh npm run test
+
+#### Heroku production
+https://smart-easy-travel-api.herokuapp.com/
