@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "auto": "nodemon ./bin/www",
-    "test": "mocha"
+    "test": "mocha",
+    "test-coverage": "nyc mocha"
   },
   "dependencies": {
     "ajv": "^7.0.2",
@@ -24,6 +25,7 @@
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
     "mocha": "^2.4.5",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "nyc": "^15.1.0"
   }
 }
