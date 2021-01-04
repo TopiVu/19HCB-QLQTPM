@@ -64,7 +64,7 @@ class MorePage extends Component<Props, State> {
     return (
       <View style={styles.contaniner}>
         <View>
-          <Text style={styles.title}>{translate('login:title')}</Text>
+          <Text style={styles.title}>{translate('login:title')} 1.1 </Text>
         </View>
         <View style={styles.viewBoxValue}>
           <Text style={styles.txtLabel}>{translate('login:userName')}</Text>

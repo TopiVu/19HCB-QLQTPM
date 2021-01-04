@@ -41,13 +41,15 @@ epicMiddleware.run(rootEpic as any)
     optionalIgnoreButtonLabel: 'Để sau',
     optionalInstallButtonLabel: 'Cập nhật',
     optionalUpdateMessage: 'Đã có bản cập nhật mới!'
-  }
+  },
+  installMode: codePush.InstallMode.IMMEDIATE
 } as CodePushOptions)
 export class Root extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
   // console.disableYellowBox = true;
   }
+  
   render() {
     return (
       <View style={styles.container}>
