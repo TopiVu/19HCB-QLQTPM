@@ -41,12 +41,12 @@ describe('API Routes', function () {
           res.should.have.status(200);
           res.should.be.json
           res.body.success.should.equal(true);
-          res.body.data.should.be.a('array');
-          res.body.data.length.should.equal(4);
-          res.body.data[0].name.should.equal('Highland');
-          res.body.data[1].name.should.equal('The coffee house');
-          res.body.data[2].name.should.equal('Phuc long');
-          res.body.data[3].name.should.equal('Ong Bau');
+          res.body.data.should.be.a('object');
+          res.body.data.records.length.should.equal(4);
+          res.body.data.records[0].name.should.equal('Highland');
+          res.body.data.records[1].name.should.equal('The coffee house');
+          res.body.data.records[2].name.should.equal('Phuc long');
+          res.body.data.records[3].name.should.equal('Ong Bau');
           done();
         });
     });

@@ -33,7 +33,8 @@ const constant = require('../../utils/globals');
  */
 router.get('/', async function (req, res) {
   try {
-    const data = await touristPackageModel.findAll();
+    const page = typeof (req.query.page) !== 'undefined' ? parseInt(req.query.page) : 1;
+    const data = await touristPackageModel.findAll({ page: page });
     return res.status(200).json({ success: true, data });
   } catch(err) {
     return res.status(500).json({ success: false, message: constant.ERROR_API_MESSAGE, error: err })

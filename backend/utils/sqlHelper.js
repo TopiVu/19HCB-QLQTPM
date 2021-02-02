@@ -11,6 +11,25 @@ const buildSearchQuery = function (attributes, tableName) {
   return queryStr
 }
 
+const pagy = function ({ db, modelName, page, per_page, queryOptions }) {
+  const offset = (page - 1) * per_page;
+
+  return Promise.all([
+    db.count('* as count').from(modelName).first(),
+    db.select("*").from(modelName).offset(offset).limit(per_page)
+  ]).then(([total, rows]) => {
+    const count = total.count;
+    const firstPage = page === 1;
+    const lastPage = offset + per_page >= count;
+    const prevPage = firstPage ? -1 : page - 1;
+    const nextPage = lastPage ? -1 : page + 1;
+    const totalPage = Math.ceil(count / per_page);
+    const records = rows
+    return { count, firstPage, lastPage, prevPage, nextPage, totalPage, records }
+  });
+}
+
 module.exports = {
-  buildSearchQuery
+  buildSearchQuery,
+  pagy
 }

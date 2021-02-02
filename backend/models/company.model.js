@@ -1,13 +1,14 @@
 const db = require('../config/db')
-const { buildSearchQuery } = require('./../utils/sqlHelper');
+const { buildSearchQuery, pagy } = require('./../utils/sqlHelper');
 
 module.exports = {
   search: ({ name, address, phone }) => {
     let queryStr = buildSearchQuery({ name, address, phone }, 'company');
     return db.raw(queryStr).then(result => result[0]);
   },
-  findAll: (queryOptions = {}) => {
-    return db('company').where(queryOptions);
+  findAll: (params = {}) => {
+    const { page } = params
+    return pagy({ db: db, modelName: 'company', page: page, per_page: 10 })
   },
   findById: (company_id) => {
     return db('company').where('company_id', company_id).first();
