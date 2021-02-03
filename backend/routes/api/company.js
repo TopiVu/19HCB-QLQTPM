@@ -13,21 +13,31 @@ const constant = require('../../utils/globals');
  *     HTTP/1.1 200 OK
  * {
  *     "success": true
- *     "data": [
- *         {
- *             "company_id": 1,
- *             "name": "Highland",
- *             "address": "272 Nguyen Van Cu",
- *             "phone": "0123456789",
- *             "user_id": 1
- *         },
- *         {
- *             "company_id": 5,
- *             "name": "The coffee house",
- *             "address": "272 nguyen van cu",
- *             "phone": "012345001",
- *             "user_id": 5
- *         },
+ *     "data":
+ *      {
+ *          "count": 2,
+ *          "firstPage": true,
+ *          "lastPage": true,
+ *          "prevPage": -1,
+ *          "nextPage": -1,
+ *          "totalPage": 1,
+ *          "records":
+ *           [
+ *            {
+ *                "company_id": 1,
+ *                "name": "Highland",
+ *                "address": "272 Nguyen Van Cu",
+ *                "phone": "0123456789",
+ *                "user_id": 1
+ *            },
+ *            {
+ *                "company_id": 5,
+ *                "name": "The coffee house",
+ *                "address": "272 nguyen van cu",
+ *                "phone": "012345001",
+ *                "user_id": 5
+ *            },
+ *           ]
  *     ]
  * }
  */

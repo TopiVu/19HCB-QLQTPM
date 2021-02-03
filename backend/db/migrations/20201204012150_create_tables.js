@@ -60,6 +60,7 @@ exports.up = function (knex) {
             table.integer('status').notNullable().default(1);
             table.integer('user_id').notNullable().unsigned().index().references('user_id').inTable('user');
             table.integer('tourist_package_id').notNullable().unsigned().index().references('tourist_package_id').inTable('tourist_package');
+            table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
         }),
         knex.schema.createTableIfNotExists('feedback', function (table) {
             table.charset('utf8');
@@ -69,6 +70,7 @@ exports.up = function (knex) {
             table.integer('rate').notNullable();
             table.integer('user_id').notNullable().unsigned().index().references('user_id').inTable('user');
             table.integer('tourist_package_id').notNullable().unsigned().index().references('tourist_package_id').inTable('tourist_package');
+            table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
         }),
         knex.schema.createTableIfNotExists('tourist_area', function (table) {
             table.charset('utf8');

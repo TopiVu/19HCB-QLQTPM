@@ -13,22 +13,31 @@ const constant = require('../../utils/globals');
  *     HTTP/1.1 200 OK
  * {
  *     "success": true
- *     "data": [
- *         {
- *             "tourist_package_id": 1,
- *             "name": "tour 1",
- *             "content": "content",
- *             "image_path": null,
- *             "price": "150000.00",
- *             "start_date": "2020-12-26T17:38:57.000Z",
- *             "end_date": null,
- *             "expired_date": null,
- *             "status": 1,
- *             "min_capacity": null,
- *             "max_capacity": null,
- *             "company_id": 1
- *         }
- *     ]
+ *     "data":
+ *      {
+ *          "count": 1,
+ *          "firstPage": true,
+ *          "lastPage": true,
+ *          "prevPage": -1,
+ *          "nextPage": -1,
+ *          "totalPage": 1,
+ *          "records":
+ *           [
+ *              {
+ *                  "tourist_package_id": 1,
+ *                  "name": "tour 1",
+ *                  "content": "content",
+ *                  "image_path": null,
+ *                  "price": "150000.00",
+ *                  "start_date": "2020-12-26T17:38:57.000Z",
+ *                  "end_date": null,
+ *                  "expired_date": null,
+ *                  "status": 1,
+ *                  "min_capacity": null,
+ *                  "max_capacity": null,
+ *                  "company_id": 1
+ *              }
+ *           ]
  * }
  */
 router.get('/', async function (req, res) {

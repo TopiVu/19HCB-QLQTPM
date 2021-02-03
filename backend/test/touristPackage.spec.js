@@ -42,7 +42,7 @@ describe('API Routes', function () {
           res.should.be.json
           res.body.success.should.equal(true);
           res.body.data.should.be.a('object');
-          res.body.data.records.length.should.equal(3);
+          res.body.data.records.length.should.equal(4);
           res.body.data.records[0].name.should.equal('Package 001');
           res.body.data.records[1].name.should.equal('Package 002');
           res.body.data.records[2].name.should.equal('Package 003');
@@ -139,7 +139,7 @@ describe('API Routes', function () {
 
   // Delete
   describe('POST /api/tourist_package/:id/delete', function () {
-    const id = 1;
+    const id = 4;
     it('should return success true', function (done) {
       chai.request(server)
         .get('/api/tourist_package/' + id + '/delete')
@@ -163,10 +163,11 @@ describe('API Routes', function () {
           res.should.be.json
           res.body.success.should.equal(true);
           res.body.data.should.be.a('array');
-          res.body.data.length.should.equal(3);
+          res.body.data.length.should.equal(4);
           res.body.data[0].name.should.equal('Package 001');
           res.body.data[1].name.should.equal('Package 002');
           res.body.data[2].name.should.equal('Package 003');
+          res.body.data[3].name.should.equal('Package 004');
           done();
         });
     });

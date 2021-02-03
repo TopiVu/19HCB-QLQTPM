@@ -40,6 +40,18 @@ exports.seed = async function (knex) {
       expired_date: "2020-12-20",
       min_capacity: 5,
       max_capacity: 10,
+    },
+    {
+      company_id: highlandCompany.company_id,
+      name: 'Package 004',
+      content: 'Package 004 content',
+      image_path: null,
+      price: 1600,
+      start_date: "2020-12-15",
+      end_date: "2020-12-30",
+      expired_date: "2020-12-20",
+      min_capacity: 5,
+      max_capacity: 10,
     }
   ])
 

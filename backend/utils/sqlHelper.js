@@ -11,12 +11,20 @@ const buildSearchQuery = function (attributes, tableName) {
   return queryStr
 }
 
-const pagy = function ({ db, modelName, page, per_page, queryOptions }) {
+const pagy = function ({ db, modelName, page, per_page, where = null }) {
   const offset = (page - 1) * per_page;
 
+  let countPromsie = where && typeof(where) !== 'undefined'
+    ? db.count('* as count').from(modelName).where(where).first()
+    : db.count('* as count').from(modelName).first()
+
+  let queryPromise = where && typeof(where) !== 'undefined'
+    ? db.select("*").from(modelName).where(where).offset(offset).limit(per_page)
+    : db.select("*").from(modelName).offset(offset).limit(per_page)
+
   return Promise.all([
-    db.count('* as count').from(modelName).first(),
-    db.select("*").from(modelName).offset(offset).limit(per_page)
+    countPromsie,
+    queryPromise
   ]).then(([total, rows]) => {
     const count = total.count;
     const firstPage = page === 1;
