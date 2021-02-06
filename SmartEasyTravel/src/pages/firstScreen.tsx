@@ -20,7 +20,7 @@ class FirtScreenComponent extends Component<Props, State> {
           changeLanguage(JSON.parse(data).language)
         }
       })
-      AsyncStorage.getItem('jwt').then(data => {
+      AsyncStorage.getItem('access_token').then(data => {
         if (data) {
           return store.dispatch(SetAppConfig.get({ token: data }))
         }

@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Login, SetAppConfig } from 'core/actions';
 import { store } from 'core/root';
-import { changeLanguage } from 'i18next';
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { CInput } from 'shared/components';
 import { ColorContentTheme, ColorTheme, DEVICE_WIDTH, percentScreen } from 'shared/system';
 import { translate } from 'shared/translate/translate';
+import { LoginRequest } from './redux/actions';
 
 interface Props { }
 interface State {
@@ -43,8 +43,11 @@ class MorePage extends Component<Props, State> {
       }
       return true
     }
-    store.dispatch(Login.get())
-    store.dispatch(SetAppConfig.get({ token: 'agdywgqydawdawh' }))
+    const value = {
+      username: "user001",
+      password: "123456"
+    }
+    store.dispatch(LoginRequest.get(value))
   }
   isDisabled = () => {
     const { userName, password, emptyUserName, emptyPassword } = this.state
@@ -64,7 +67,7 @@ class MorePage extends Component<Props, State> {
     return (
       <View style={styles.contaniner}>
         <View>
-          <Text style={styles.title}>{translate('login:title')} 1.1 </Text>
+          <Text style={styles.title}>{translate('login:title')}</Text>
         </View>
         <View style={styles.viewBoxValue}>
           <Text style={styles.txtLabel}>{translate('login:userName')}</Text>

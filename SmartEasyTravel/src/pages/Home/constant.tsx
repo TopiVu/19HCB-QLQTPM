@@ -1,0 +1,97 @@
+export const dataToursFake = [
+  {
+    id: 1,
+    name: 'Du lịch đảo Phú Quốc',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '10-20',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '3-5 triệu',
+    rate: '3.7',
+    url: '',
+    cty: 'Winway'
+  },
+  {
+    id: 2,
+    name: 'Du lịch Hà Nội',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '8-15',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '5-7 triệu',
+    rate: '4.5',
+    url: '',
+    cty: 'ABC'
+  },
+  {
+    id: 3,
+    name: 'Du lịch mùa hè Phú Quốc',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '10-15',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '5-7 triệu',
+    rate: '4.7',
+    url: '',
+    cty: 'ABC'
+  },
+  {
+    id: 4,
+    name: 'Tiền giang du lịch sinh thái',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '10-20',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '3-5 triệu',
+    rate: '4.1',
+    url: 'WinWay',
+    cty: 'WinWay'
+  },
+  {
+    id: 5,
+    name: 'Du lịch quanh HCM',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '10-20',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '5-7 triệu',
+    rate: '3.7',
+    url: ''
+  },
+  {
+    id: 6,
+    name: 'Phú Quốc Đảo Thiên Đường',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '10-20',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '3-5 triệu',
+    rate: '3.7',
+    url: '',
+    cty: 'FNF'
+  },
+  {
+    id: 7,
+    name: 'Đà lạt thành phố mọng mơ',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '5-7',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '3-5 triệu',
+    rate: '3.8',
+    url: '',
+    cty: 'ABC'
+  },
+  {
+    id: 1,
+    name: 'Du lịch đà lạt',
+    content: 'Tour du lịch hè thú vị cùng công ty Winway tại phú quốc. Trải nghiệm hằng trăm món ăn đọc đáo và thú vị. Tận hưởng những ưu đãi đúng c...',
+    member: '10-20',
+    time: '18/04/2020 - 20/04/2020',
+    deadline: '11/04/2020',
+    price: '3-5 triệu',
+    rate: '4.7',
+    url: '',
+    cty: 'FNF'
+  },
+]

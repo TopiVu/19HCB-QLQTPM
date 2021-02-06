@@ -3,8 +3,7 @@ import { PlainAction } from "redux-typed-actions"
 import { clearAppConfig, saveAppConfig } from "./store"
 import { BlankAction, ChangeLanguage, Login, SetAppConfig, SignOut } from "./actions"
 import { combineReducers } from "redux"
-import { changeLanguage } from "i18next"
-
+import { homeReducer } from 'pages/Home/redux/reducer'
 const appStateReducer = (
   state: any = {
     config: {},
@@ -58,4 +57,5 @@ const appStateReducer = (
 }
 export const mapReducers = combineReducers({
   rootApp: appStateReducer,
+  homeStore: homeReducer
 })

@@ -42,7 +42,7 @@ function App() {
   console.log('log__', store.getState())
   return (
     <NavigationContainer>
-      {(store.getState() as any).rootApp && (store.getState() as any).rootApp?.token ?
+      {(store.getState() as any).rootApp && (store.getState() as any).rootApp?.access_token ?
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={({ route }) => ({

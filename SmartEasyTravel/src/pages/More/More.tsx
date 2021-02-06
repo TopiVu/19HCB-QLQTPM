@@ -11,20 +11,6 @@ import { translate, WithNamespaces } from 'react-i18next';
 import { PlainAction } from 'redux-typed-actions';
 import { connect } from 'react-redux';
 
-import Odoo from 'react-native-odoo'
-
-const odoo = new Odoo({
-  host: '45.77.244.149',
-  port: 8069,
-  database: 'DLI',
-  username: 'admin',
-  password: 'admin'
-});
-//Connect to Odoo
-odoo.connect(function (err) {
-  if (err) { return console.log(err); 
-  }
-});
 
 const mapStateToProps = (state: any) => state['rootApp'] || {}
 

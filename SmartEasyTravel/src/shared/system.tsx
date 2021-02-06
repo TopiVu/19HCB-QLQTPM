@@ -18,3 +18,4 @@ export function log(...arg: any[]) {
     console.info(arg.map(i => (['string', 'number'].indexOf(typeof i) === -1 ? JSON.stringify(i, null, ' ') : i)).join(` `))
   }
 }
+export const DOMAIN = 'https://smart-easy-travel-api.herokuapp.com/'
