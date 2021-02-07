@@ -11,6 +11,12 @@ var touristPackageRouter = require('./routes/touristPackage');
 var authRouter = require('./routes/auth');
 var feedbackRouter = require('./routes/feedback');
 
+// require api routers
+var touristPackageApiRouter = require('./routes/api/touristPackage');
+var companyApiRouter = require('./routes/api/company');
+var feedbackApiRouter = require('./routes/api/feedback');
+var bookingApiRouter = require('./routes/api/booking');
+
 var app = express();
 
 // view engine setup
@@ -30,6 +36,12 @@ app.use('/tourist_package', touristPackageRouter);
 app.use('/auth', authRouter);
 app.use('/feedback', feedbackRouter);
 
+// Api endpoints
+app.use('/api/tourist_package', touristPackageApiRouter);
+app.use('/api/company', companyApiRouter);
+app.use('/api/feedback', feedbackApiRouter);
+app.use('/api/booking', bookingApiRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.redirect('/');
@@ -46,8 +58,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8080, () => {
-  console.log('App listening on port 8080!');
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log('App listening on port ' + port);
 });
 
 module.exports = app;

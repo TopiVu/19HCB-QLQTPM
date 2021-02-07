@@ -1,11 +1,6 @@
-const knex = require('knex') ({
-    client: 'mysql2',
-    connection: {
-        host: 'localhost',
-        user: 'root',
-        database: 'SmartEasyTravel',
-        port: 3306
-    }
-});
+const config = require('./../knexfile');
+const knex = require('knex');
+const envMode = process.env.NODE_ENV || 'development';
+const db = knex(config[envMode]);
 
-module.exports = knex;
+module.exports = db;

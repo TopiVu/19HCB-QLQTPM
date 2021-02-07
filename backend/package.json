@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "auto": "nodemon ./bin/www",
+    "test": "mocha",
+    "test-coverage": "nyc mocha"
   },
   "dependencies": {
     "ajv": "^7.0.2",
@@ -17,5 +20,12 @@
     "knex": "^0.21.12",
     "morgan": "~1.9.1",
     "mysql2": "^2.2.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5",
+    "nodemon": "^2.0.6",
+    "nyc": "^15.1.0"
   }
 }

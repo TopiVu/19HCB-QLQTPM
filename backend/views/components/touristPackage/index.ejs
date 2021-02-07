@@ -1,9 +1,68 @@
 <div class="container-fluid">
-  <div class="analytics-info-cs">
-    <h1>Tourist package index</h1>
+  <div class="product-status mg-b-15">
+    <div class="container-fluid">
+        <div class="row" id="tourlist">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                    <h4>{{title}}</h4>
+                    <div class="add-product">
+                        <a href="/tourist_package/new">Add Library</a>
+                    </div>
+                    <div class="asset-inner">
+                        <table id="tours_table">
+                          <thead>
+                            <tr>
+                              <!-- <th>Stt</th> -->
+                              <th>Gói du lịch</th>
+                              <th>Thời gian</th>
+                              <th>Giá</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(tour,i) in tourlist">
+                              <!-- <td>{{i+1}}</td> -->
+                              <td>
+                                <table>
+                                  <tr>
+                                    <td style="border: 0px; padding: 0px; width: 80px;">
+                                      <img style="width: 100%" :src="tour.image_path" alt="" />
+                                    </td>
+                                    <td style="border: 0px; padding: 9px; padding-left: 10px;">
+                                      {{tour.name}}
+                                      <p style="color: red;">Ngày cuối: {{FormatDate(tour.expired_date)}}</p></td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td>
+                                {{FormatDateCld(tour.start_date)}}
+                                <p style="color: gray;">to {{FormatDateCld(tour.end_date)}}</p>
+                              </td>
+                              <td>{{tour.price}}</td>
+                              <td>
+                                <button class="pd-setting" @click="hrefEdit(tour)">Chỉnh sửa</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="custom-pagination">
+                      <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                      </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
   $(document).ready(function () {
     TouristPackagePage.initLayout();
@@ -17,4 +76,42 @@
       $('.breadcome-menu > li > span').last().html("Index");
     }
   }
+
+  var tourlist = new Vue({
+    el: '#tourlist',
+    data: {
+      title: 'tour list',
+      tourlist: []
+    },
+    mounted() {
+      this.$nextTick(function () {
+        this.fetch_data()
+      })
+    },
+    updated: function () {
+      this.$nextTick(function () {
+        $('#tours_table').DataTable();
+      })
+    },
+    methods: {
+      async fetch_data(){
+        const url = 'http://localhost:8080/api/tourist_package'
+        const res = await fetch(url)
+        const resobj = await res.json()
+        console.log(resobj)
+        this.tourlist = resobj.data
+      },
+      hrefEdit(tour){
+        const urledit = `/tourist_package/new?id=${tour.tourist_package_id}`
+        console.log(urledit)
+        window.location.href = urledit
+      },
+      FormatDate(date) {
+          return moment(date).format('DD/MM/YYYY');
+      },
+      FormatDateCld(date){
+        return moment(date).format('MMMM DD YYYY')
+      }
+    }
+  })
 </script>

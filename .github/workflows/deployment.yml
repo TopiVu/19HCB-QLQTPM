@@ -1,0 +1,63 @@
+env:
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: SmartEasyTravelTest
+name: Run unit tests and deploy to heroku
+on:
+  push:
+    branches:
+      - main
+      - master
+      - backend
+  pull_request:
+    branches:
+      - main
+      - master
+      - backend
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Verify MySQL connection from host
+        run: |
+          sudo apt-get install -y mysql-client
+          sudo /etc/init.d/mysql start
+
+      - uses: actions/checkout@v1
+      - run: mysql -h 127.0.0.1 --port 3306 -u root -p${{ env.MYSQL_ROOT_PASSWORD }} -e "CREATE DATABASE ${{ env.MYSQL_DATABASE }} CHARACTER SET utf8 COLLATE utf8_general_ci;SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES'"
+      - name: Set Node.js 10.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          npm install
+
+      - name: Run mocha
+        working-directory: backend
+        run: |
+          npm test
+  heroku-deployment:
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Deploy to Heroku
+      env:
+        HEROKU_API_KEY: f9b1e6f2-48d9-4340-a00b-610c51e7d594
+        HEROKU_APP_REPO_ID: smart-easy-travel-api
+      run: git subtree push --prefix backend https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_REPO_ID.git main

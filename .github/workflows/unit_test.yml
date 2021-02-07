@@ -1,0 +1,56 @@
+env:
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: SmartEasyTravelTest
+name: Backend unit testing
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+      - mobile
+      - backend
+  pull_request:
+    branches-ignore:
+      - main
+      - master
+      - mobile
+      - backend
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Verify MySQL connection from host
+        run: |
+          sudo apt-get install -y mysql-client
+          sudo /etc/init.d/mysql start
+
+      - uses: actions/checkout@v1
+      - run: mysql -h 127.0.0.1 --port 3306 -u root -p${{ env.MYSQL_ROOT_PASSWORD }} -e "CREATE DATABASE ${{ env.MYSQL_DATABASE }} CHARACTER SET utf8 COLLATE utf8_general_ci;SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES'"
+      - name: Set Node.js 10.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          npm install
+
+      - name: Run mocha
+        working-directory: backend
+        run: |
+          npm test
